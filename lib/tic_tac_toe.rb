@@ -65,4 +65,44 @@ class TicTacToe
     turn_count.even? ? "X" : "O"
   end
 
+  def won?
+    WIN_COMBINATIONS.detect do |position|
+      @board[position[0]] == @board[position[1]] && @board[position[1]] == @board[position[2]] && @board[position[2]] != " "
+    end
+  end
+
+  def full?
+    @board.include?("X" || "O")
+    !@board.include?(" ")
+  end
+
+  def draw?
+    full? && !won?
+  end
+
+  def over?
+    won? || full? || draw?
+  end
+
+  def winner
+      if won? == nil || @board[won?.first] != "X" && @board[won?.first] != "O"
+        return nil
+      elsif @board[won?.first] == "X"
+        return "X"
+      else "O"
+      end
+  end
+  
+  def play
+    turn until over?
+    if winner == "X"
+      puts "Congratulations X!"
+    elsif winner == "O"
+      puts "Congratulations O!"
+    elsif draw?
+      puts "Cat's Game!"
+    else
+    end
+  end
+
 end
